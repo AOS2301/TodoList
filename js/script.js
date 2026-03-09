@@ -39,6 +39,7 @@ function renderTabela(){
 
         const botaoRemover = document.createElement("button");
         botaoRemover.textContent = "❌";
+        botaoRemover.classList.add("remover");
 
         botaoRemover.addEventListener("click", function(){
             removerItem(index);
@@ -68,13 +69,11 @@ function addTable() {
 }
 
 document.addEventListener("keydown", function(event) {
-    const modal = document.getElementById("modalId");
-
     if (event.key === "Escape") {
         fecharModal();
     } 
     else if (event.key === "Enter") {
-        if (modal.style.display === "flex") {
+        if (modalId.style.display === "flex") {
             addTable();
         } else {
             abrirModal();
@@ -83,11 +82,13 @@ document.addEventListener("keydown", function(event) {
 });
 
 function removerTarefas(){
-    tarefas = [];
-    salvarCache();
-    renderTabela();
-    window.location.reload();
-}  
+    const confirmar = confirm("Tem certeza que deseja remover todas as tarefas?");
+    if(confirmar){
+        tarefas = [];
+        salvarCache();
+        renderTabela();
+    }
+}
 
 function removerItem(index){
     tarefas.splice(index, 1);
