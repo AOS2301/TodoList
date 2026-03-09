@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de tarefas</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+
+<body>
+    <h1>Lista de Tarefas!</h1>
+    <div class="modal" id="modalId">
+        <div class="modal-content">
+            <h2>Informe a atividade</h2>
+            <input class="texto" type="text" id="input" placeholder="Escreva aqui">
+            <div class="botoes-modal">
+                <button onclick="addTable()">Salvar</button>
+                <button onclick="fecharModal()">Fechar</button>
+            </div>
+        </div>
+
+    </div>
+
+    <table>
+        <tbody id="corpoTabela">
+        </tbody>
+    </table>
+    <div class="lado-lado">
+        <button onclick="abrirModal()">Adicionar tarefa!</button>
+        <button onclick="removerTarefas()">Remover Todas as Tarefa!</button>
+    </div>
+</body>
+<script src="js/script.js"></script>
+
+</html>
