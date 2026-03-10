@@ -1,11 +1,20 @@
 const modalId = document.getElementById("modalId");
 let tarefas = [];
+
+const agora = new Date();
+agora.setHours(agora.getHours() + 1);
+const dataPadrao = agora.toISOString().split("T")[0];
+const horaPadrao = agora.toTimeString().slice(0,5);
+
 carregarCache();
 renderTabela();
 
 function abrirModal() {
     modalId.style.display = "flex";
     document.getElementById("input").focus();
+
+    document.getElementById("dia").value = dataPadrao;
+    document.getElementById("hora").value = horaPadrao;
 }
 
 function fecharModal() {
@@ -29,11 +38,16 @@ function renderTabela(){
     tbody.innerHTML = "";
 
     tarefas.forEach((tarefa, index) => {
+        const data = new Date(tarefa.dia);
+        const dataFormatada = data.toLocaleDateString("pt-BR");
 
         const novaLinha = document.createElement("tr");
 
         const celulaTexto = document.createElement("td");
-        celulaTexto.textContent = tarefa;
+        celulaTexto.innerHTML = `
+            ${tarefa.texto}<br>
+            <small>${dataFormatada} ${tarefa.hora}</small>
+        `;
 
         const celulaBotao = document.createElement("td");
 
@@ -56,14 +70,24 @@ function renderTabela(){
 
 function addTable() {
     const input = document.getElementById("input");
+    const dia = document.getElementById("dia");
+    const hora = document.getElementById("hora");
     const valor = input.value;
     if (valor != '') {
 
-        tarefas.push(valor);
+        const tarefa = {
+            texto: valor,
+            dia: dia.value || dataPadrao,
+            hora: hora.value || horaPadrao
+        };
+
+        tarefas.push(tarefa);
         salvarCache();
         renderTabela();
 
         input.value = "";
+        dia.value = "";
+        hora.value = "";
     }
     fecharModal();
 }
