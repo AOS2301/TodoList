@@ -3,18 +3,14 @@ let tarefas = [];
 
 const agora = new Date();
 agora.setHours(agora.getHours() + 1);
-const dataPadrao = agora.toISOString().split("T")[0];
+const dataPadrao = agora.toISOString()/*.split("T")[0]*/;
 const horaPadrao = agora.toTimeString().slice(0,5);
-
 carregarCache();
 renderTabela();
 
 function abrirModal() {
     modalId.style.display = "flex";
     document.getElementById("input").focus();
-
-    document.getElementById("dia").value = dataPadrao;
-    document.getElementById("hora").value = horaPadrao;
 }
 
 function fecharModal() {
@@ -33,6 +29,31 @@ function carregarCache(){
     }
 }
 
+
+function compararDataHora(a, b) {
+  const diaA = a.dia || "0000-01-01";
+  const diaB = b.dia || "0000-01-01";
+
+  if (diaA !== diaB) return diaA.localeCompare(diaB);
+
+  const horaA = a.hora || "00:00";
+  const horaB = b.hora || "00:00";
+  return horaA.localeCompare(horaB);
+}
+
+function ordenarTarefas(tarefaOrdenada) {
+    if (tarefas.length === 0) {
+        tarefas.push(tarefaOrdenada);
+        return;
+    }
+
+    let i = 0;
+    while (i < tarefas.length && compararDataHora(tarefas[i], tarefaOrdenada) <= 0) {
+        i++;
+    }
+    tarefas.splice(i, 0, tarefaOrdenada);
+}
+
 function renderTabela(){
     const tbody = document.getElementById("corpoTabela");
     tbody.innerHTML = "";
@@ -40,9 +61,7 @@ function renderTabela(){
     tarefas.forEach((tarefa, index) => {
         const data = new Date(tarefa.dia);
         const dataFormatada = data.toLocaleDateString("pt-BR");
-
         const novaLinha = document.createElement("tr");
-
         const celulaTexto = document.createElement("td");
         celulaTexto.innerHTML = `
             ${tarefa.texto}<br>
@@ -81,7 +100,8 @@ function addTable() {
             hora: hora.value || horaPadrao
         };
 
-        tarefas.push(tarefa);
+        ordenarTarefas(tarefa);
+        //tarefas.push(tarefa);
         salvarCache();
         renderTabela();
 
@@ -116,7 +136,6 @@ function removerTarefas(){
 
 function removerItem(index){
     tarefas.splice(index, 1);
-
     salvarCache();
     renderTabela();
 }
