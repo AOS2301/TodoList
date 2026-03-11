@@ -3,8 +3,14 @@ let tarefas = [];
 
 const agora = new Date();
 agora.setHours(agora.getHours() + 1);
-const dataPadrao = agora.toISOString()/*.split("T")[0]*/;
+
+const ano = agora.getFullYear();
+const mes = String(agora.getMonth() + 1).padStart(2, "0");
+const dia = String(agora.getDate()).padStart(2, "0");
+
+const dataPadrao = `${ano}-${mes}-${dia}`;
 const horaPadrao = agora.toTimeString().slice(0,5);
+
 carregarCache();
 renderTabela();
 
@@ -59,8 +65,8 @@ function renderTabela(){
     tbody.innerHTML = "";
 
     tarefas.forEach((tarefa, index) => {
-        const data = new Date(tarefa.dia);
-        const dataFormatada = data.toLocaleDateString("pt-BR");
+        const [ano, mes, dia] = tarefa.dia.split("-");
+        const dataFormatada = `${dia}/${mes}/${ano}`;
         const novaLinha = document.createElement("tr");
         const celulaTexto = document.createElement("td");
         celulaTexto.innerHTML = `
