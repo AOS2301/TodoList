@@ -12,6 +12,27 @@ body {
     height: 100%;
 }
 
+.idiomas{
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    display: flex;
+    gap: 10px;
+}
+
+.idiomas button{
+    height: 40px;
+    width: 40px;
+    border: none;
+    border-radius: 8px;
+}
+
+.idiomas button:hover{
+    background-color: rgb(69, 69, 69);
+    transition: 0.3s;
+    transform: scale(1.05);
+}
+
 .modal {
     display: none;
     position: fixed;

@@ -9,16 +9,20 @@
 </head>
 
 <body>
-    <h1>Lista de Tarefas!</h1>
+    <div class="idiomas">
+        <button onclick="trocarIdioma('pt')">PT</button>
+        <button onclick="trocarIdioma('en')">EN</button>
+    </div>
+    <h1 id="titulo"></h1>
     <div class="modal" id="modalId">
         <div class="modal-content">
-            <h2>Informe a atividade</h2>
-            <input class="texto" type="text" id="input" placeholder="Escreva aqui">
+            <h2 id="modalText"></h2>
+            <input class="texto" type="text" id="input">
             <input class="dia" type="date" id="dia">
             <input class="hora" type="time" id="hora">
             <div class="botoes-modal">
-                <button onclick="addTable()">Salvar</button>
-                <button onclick="fecharModal()">Fechar</button>
+                <button onclick="addTable()" id="save">Salvar</button>
+                <button onclick="fecharModal()" id="close">Fechar</button>
             </div>
         </div>
 
@@ -29,10 +33,10 @@
         </tbody>
     </table>
     <div class="lado-lado">
-        <button onclick="abrirModal()">Adicionar tarefa!</button>
-        <button onclick="removerTarefas()">Remover Todas as Tarefa!</button>
+        <button onclick="abrirModal()" id="btnAdd"></button>
+        <button onclick="removerTarefas()" id="btnRemove"></button>
     </div>
 </body>
 <script src="js/script.js"></script>
-
+<script src="js/languages.js"></script>
 </html>

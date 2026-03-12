@@ -107,7 +107,6 @@ function addTable() {
         };
 
         ordenarTarefas(tarefa);
-        //tarefas.push(tarefa);
         salvarCache();
         renderTabela();
 
@@ -132,7 +131,14 @@ document.addEventListener("keydown", function(event) {
 });
 
 function removerTarefas(){
-    const confirmar = confirm("Tem certeza que deseja remover todas as tarefas?");
+    const idioma = localStorage.getItem("idioma");
+    const confirmar = "";
+    if(idioma === "pt"){
+        confirmar = confirm("Tem certeza que deseja remover todas as tarefas?");
+    } else{
+        confirmar = confirm("Are you sure you want to remove all tasks?");
+    }
+    
     if(confirmar){
         tarefas = [];
         salvarCache();
